@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { InputIntergerComponent, ButtonComponent } from '../../../../components'
 
 import styles from './styles'
 
-export function Item({ name, price, description }){
-    const [quantity, setQuantity] = useState(1);
-    const [total, setTotal] = useState(price);
-    const [expand, setExpand] = useState(false);
+export function Item({ name, price, description, quantity: initQuantity }){
+    const [quantity, setQuantity] = useState(initQuantity);
+    const [total, setTotal] = useState(price * initQuantity);
 
     const updateQuantityAndTotal = (newQuantity) => {
         setQuantity(newQuantity);
@@ -19,13 +18,8 @@ export function Item({ name, price, description }){
         setTotal(newQuantity * price);
     }
 
-    const invertExpand = () => {
-        setExpand(!expand);
-        updateQuantityAndTotal(1);
-    }
-
     return <>
-        <TouchableOpacity style={styles.info} onPress={invertExpand}>
+        <View style={styles.info}>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.description}>{description}</Text>
             <Text style={styles.price}>
@@ -35,9 +29,7 @@ export function Item({ name, price, description }){
                     }).format(price)
                 }
             </Text>
-        </TouchableOpacity>
-        {
-            expand && 
+        </View>
             <View style={styles.cart}>
                 <View>
                     <View style={styles.value}>
@@ -59,11 +51,10 @@ export function Item({ name, price, description }){
                         </Text>
                     </View>
                 </View>
-                <ButtonComponent  value={'Adicionar ao Carrinho'} action={
+                <ButtonComponent  value={'Remover do Carrinho'} action={
                     () => {}
                 }/>
             </View>
-        }
         <View style={styles.divider} />
     </>
 }

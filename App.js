@@ -1,14 +1,12 @@
-import { StatusBar, SafeAreaView } from 'react-native';
-import ServicesPage from './src/pages/Services'
-
 import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
 
+import { DefaultPageComponent } from './src/components'
+
+import Routes from './src/routes'
+
 export default function App() {
-  return (
-    <SafeAreaView>
-      <StatusBar />
-      <ServicesPage />
-    </SafeAreaView>
-  );
+  return <DefaultPageComponent>
+    <Routes />
+  </DefaultPageComponent>
 }
